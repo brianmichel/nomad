@@ -69,3 +69,39 @@ $button-padding-horizontal: 0.75em;
 $breakpoint-mobile: 'max-width: 768px';
 $breakpoint-tablet: 'min-width: 769px';
 $breakpoint-desktop: 'min-width: 1088px';
+
+$themes: (
+  light: (
+    text: #333333,
+    bg: #ffffff,
+    brand: #567567,
+  ),
+  dark: (
+    text: #ffffff,
+    bg: $dark,
+    brand: #abcabc,
+  ),
+);
+
+$theme-map: null;
+
+@mixin themify() {
+  // Light mode styles (default)
+  $theme-map: map-get($themes, 'light') !global;
+  @content;
+
+  // Dark mode styles
+  @media (prefers-color-scheme: dark) {
+    $theme-map: map-get($themes, 'dark') !global;
+    @content;
+  }
+
+  $theme-map: null !global;
+}
+
+@function themed($key) {
+  @if $theme-map == null {
+    @error "No theme map has been set. Are you using themed() inside a themify mixin?";
+  }
+  @return map-get($theme-map, $key);
+}

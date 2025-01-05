@@ -6,7 +6,10 @@
 @use 'sass:math';
 
 .table {
-  color: $text;
+  @include themify {
+    color: themed('text');
+    background-color: themed('bg');
+  }
   border-radius: $radius;
   border: 1px solid $grey-blue;
   border-collapse: separate;

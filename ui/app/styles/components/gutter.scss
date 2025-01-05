@@ -4,6 +4,10 @@
  */
 
 .gutter {
+  @include themify {
+    color: themed('text');
+    background-color: themed('bg');
+  }
   display: flex;
   flex-direction: column;
   height: 100%;
